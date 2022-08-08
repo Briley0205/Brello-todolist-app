@@ -1,5 +1,6 @@
 import { atom, selector } from "recoil";
 
+// for selector function
 export const minuteState = atom({
   key: "minutes",
   default: 0,
