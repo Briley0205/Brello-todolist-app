@@ -17,3 +17,9 @@ export const hourSelector = selector<number>({
     set(minuteState, minutes);
   },
 });
+
+// for DragNDrop
+export const toDoState = atom({
+  key: "toDo",
+  default: ["a", "b", "c", "d", "e"],
+});
