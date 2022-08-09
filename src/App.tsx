@@ -9,6 +9,7 @@ import {
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
+import DraggableCard from "./Components/DragabbleCard";
 
 const Wrapper = styled.div`
   display: flex;
@@ -30,12 +31,6 @@ const Board = styled.div`
   border-radius: 5px;
   min-height: 200px;
   background-color: ${(props) => props.theme.boardColor};
-`;
-const Card = styled.div`
-  border-radius: 5px;
-  margin-bottom: 5px;
-  padding: 10px 10px;
-  background-color: ${(props) => props.theme.cardBgColor};
 `;
 
 function App() {
@@ -59,17 +54,11 @@ function App() {
             {(provided) => (
               <Board ref={provided.innerRef} {...provided.droppableProps}>
                 {toDos.map((toDo, index) => (
-                  <Draggable key={toDo} draggableId={toDo} index={index}>
-                    {(magic) => (
-                      <Card
-                        ref={magic.innerRef}
-                        {...magic.draggableProps}
-                        {...magic.dragHandleProps}
-                      >
-                        {toDo}
-                      </Card>
-                    )}
-                  </Draggable>
+                  <DraggableCard
+                    key={toDo}
+                    index={index}
+                    toDo={toDo}
+                  ></DraggableCard>
                 ))}
                 {provided.placeholder}
               </Board>
