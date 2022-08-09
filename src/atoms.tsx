@@ -19,7 +19,14 @@ export const hourSelector = selector<number>({
 });
 
 // for DragNDrop
-export const toDoState = atom({
+interface IToDoState {
+  [key: string]: string[];
+}
+export const toDoState = atom<IToDoState>({
   key: "toDo",
-  default: ["a", "b", "c", "d", "e"],
+  default: {
+    to_do: ["a", "d"],
+    doing: ["b", "c", "f"],
+    done: ["e"],
+  },
 });
