@@ -11,12 +11,24 @@ const Wrapper = styled.div`
   min-height: 300px;
   height: 100%;
   background-color: ${(props) => props.theme.boardColor};
+  display: flex;
+  flex-direction: column;
 `;
 const Title = styled.h2`
   text-align: center;
   font-weight: 600;
   margin-bottom: 10px;
   font-size: 18px;
+`;
+interface IDropAreaProps {
+  draggingFromThis: boolean;
+  isDraggingOver: boolean;
+}
+const DropArea = styled.div<IDropAreaProps>`
+  background-color: ${(props) =>
+    props.isDraggingOver ? "pink" : props.draggingFromThis ? "red" : "blue"};
+  flex-grow: 1;
+  transition: background-color 0.2s ease-in-out;
 `;
 
 interface IBoardProps {
@@ -28,9 +40,10 @@ function Board({ toDos, droppableId }: IBoardProps) {
     <Wrapper>
       <Title>{droppableId}</Title>
       <Droppable droppableId={droppableId}>
-        {(provided) => (
-          <div
-            style={{ backgroundColor: "blue" }}
+        {(provided, snapshot) => (
+          <DropArea
+            isDraggingOver={snapshot.isDraggingOver}
+            draggingFromThis={Boolean(snapshot.draggingFromThisWith)}
             ref={provided.innerRef}
             {...provided.droppableProps}
           >
@@ -42,7 +55,7 @@ function Board({ toDos, droppableId }: IBoardProps) {
               ></DraggableCard>
             ))}
             {provided.placeholder}
-          </div>
+          </DropArea>
         )}
       </Droppable>
     </Wrapper>
